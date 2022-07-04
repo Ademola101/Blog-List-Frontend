@@ -56,9 +56,16 @@ const App = () => {
     }
     catch(error){
       setNoti('invalid usrname or password')
-      
+      setTimeout(() => {
+        setNoti(null)
+      }, 5000);
 
     }
+  }
+
+  const logout = () => {
+    window.localStorage.clear()
+    setUser(null)
   }
 
   useEffect(() => {
@@ -120,7 +127,7 @@ const App = () => {
 
       <button> add blog</button>
       </form>
-      
+      <button onClick={logout}>logout</button>
       </>)  : (LoginForm()) }
       
     </div>
