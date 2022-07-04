@@ -21,19 +21,30 @@ const App = () => {
   const loginSubmit = async(e) => {
     e.preventDefault()
     try{
-      const user = Loginservices.login({username, password});
+      const user = await Loginservices.login({username, password});
       setUser(user)
+      window.localStorage.setItem('userLoggedin', JSON.stringify(user))
       setUsername('')
       setPassword('')
     }
     catch(error){
       setNoti('invalid usrname or password')
+      
 
     }
   }
 
+  useEffect(() => {
+    const loggeInUser = window.localStorage.getItem('userLoggedin');
+    if (loggeInUser) {
+      const user  = JSON.parse(loggeInUser)
+      setUser(user)
+    }
+  }, [])
+
   const LoginForm = () => (
     <div>
+      <Notification error={noti}/>
       <form onSubmit={loginSubmit}>
 
 <div>
@@ -53,7 +64,8 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      {user ?  ( <div>{blogs.map(blog =>
+      
+      {user !== null ?  ( <div> <div> {user.username} logged in</div>{blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )} </div>) : (LoginForm()) }
       
