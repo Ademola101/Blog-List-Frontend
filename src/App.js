@@ -11,19 +11,22 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
   const [noti, setNoti] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [newBlog, setNewBlog] = useState({
     title: "",
     author: "",
     url: "",
-    likes: null
+    likes: ""
   })
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
+      
     )  
+    console.log(user);
   }, [])
-
+console.log(user);
 
   const newBlogSubmit = async (e) => {
     e.preventDefault()
@@ -31,12 +34,15 @@ const App = () => {
    const returnBlog = await blogService.create(newBlog)
    console.log(returnBlog);
    setBlogs(blogs.concat(returnBlog))
-   console.log(blogs);
+   setNoti(`a new blog ${returnBlog.title} was added`);
+   setTimeout(() => {
+    setNoti(null)
+   }, 5000)
    setNewBlog({
     title: "",
     author: "",
     url: "",
-    likes: null})
+    likes: ""})
    }
 
    catch(error) {
@@ -69,17 +75,20 @@ const App = () => {
   }
 
   useEffect(() => {
+    setLoading(true)
     const loggeInUser = window.localStorage.getItem('userLoggedin');
     if (loggeInUser) {
       const user  = JSON.parse(loggeInUser)
       setUser(user)
       blogService.setToken(user.token)
     }
+    setLoading(false)
   }, [])
 
   const LoginForm = () => (
     <div>
-      <Notification error={noti}/>
+      
+
       <form onSubmit={loginSubmit}>
 
 <div>
@@ -99,8 +108,8 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      
-      {user !== null ?  (<> <div> {user.username} logged in</div> <div> {blogs.map(blog =>
+      <Notification error={noti}/>
+      {user !== null ? (<> <div> {user.username} logged in</div> <div> {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )} </div>
       <form onSubmit={newBlogSubmit}>
@@ -128,8 +137,7 @@ const App = () => {
       <button> add blog</button>
       </form>
       <button onClick={logout}>logout</button>
-      </>)  : (LoginForm()) }
-      
+      </>): (LoginForm())  }  
     </div>
   )
 }
