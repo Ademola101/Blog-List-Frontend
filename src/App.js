@@ -16,6 +16,14 @@ const App = () => {
   const [blogFormVisible, setBlogFormVisible] = useState(false)
   
 
+  const deleteBlog = async (id) => {
+
+    await blogService.remove(id)
+    const updatedBlog = blogs.filter(blog => blog.id !== id)
+    setBlogs(updatedBlog)
+  }
+
+  
   const increaseLike =  async(id) => {
     
     const blog = blogs.find(blog => blog.id === id)
@@ -131,7 +139,8 @@ const App = () => {
       handleUrlChange = {({target}) => setNewBlog({...newBlog, url: target.value})}
       
       /> </Togglable><div> {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} increaseLike = {() => increaseLike(blog.id)} />
+        <Blog key={blog.id} blog={blog} increaseLike = {() => increaseLike(blog.id)} 
+        deleteBlog = {() => deleteBlog(blog.id)} />
       )} </div>  
        </>): (LoginForm())  }  
     </div>
