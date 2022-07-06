@@ -3,6 +3,8 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Loginservices from './services/Login'
 import Notification from './components/Notification'
+import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 
 
 const App = () => {
@@ -11,7 +13,38 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
   const [noti, setNoti] = useState(null)
-  const [loading, setLoading] = useState(true)
+  
+  
+
+  const deleteBlog = async (id) => {
+    const blog = blogs.find(blog => blog.id ===id)
+    if (window.confirm(`Remove blog  ${blog.title}! by ${blog.author}`)) {
+
+      try {await blogService.remove(id)
+        const updatedBlog = blogs.filter(blog => blog.id !== id)
+        setBlogs(updatedBlog)
+       } 
+
+       catch(e) {
+        setNoti('Unauthorize')
+
+        setTimeout( () => {
+          setNoti(null)
+        }, 5000)
+       }
+     }
+  }
+
+
+  const increaseLike =  async(id) => {
+    
+    const blog = blogs.find(blog => blog.id === id)
+    
+    const blogLike  = blog.likes
+    const changeBlog = {...blog, likes : blogLike + 1};
+    const returnedBlog =  await blogService.update(id, changeBlog)
+    setBlogs(blogs.map(blog => blog.id !==  id ? blog: returnedBlog))
+  }
   const [newBlog, setNewBlog] = useState({
     title: "",
     author: "",
@@ -26,7 +59,7 @@ const App = () => {
     )  
     console.log(user);
   }, [])
-console.log(user);
+
 
   const newBlogSubmit = async (e) => {
     e.preventDefault()
@@ -75,14 +108,14 @@ console.log(user);
   }
 
   useEffect(() => {
-    setLoading(true)
+    
     const loggeInUser = window.localStorage.getItem('userLoggedin');
     if (loggeInUser) {
       const user  = JSON.parse(loggeInUser)
       setUser(user)
       blogService.setToken(user.token)
     }
-    setLoading(false)
+    
   }, [])
 
   const LoginForm = () => (
@@ -109,35 +142,19 @@ console.log(user);
     <div>
       <h2>blogs</h2>
       <Notification error={noti}/>
-      {user !== null ? (<> <div> {user.username} logged in</div> <div> {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )} </div>
-      <form onSubmit={newBlogSubmit}>
-        <p> Add blog</p>
-
-      <div>
-
-      <label htmlFor="title">title</label> <br />
-      <input type="text" name="title" value={newBlog.title} onChange={({target}) => setNewBlog({...newBlog, title: target.value})} />  <br />
-      </div>
-  
-      <div>
-      <label htmlFor="author">author</label> <br />
-      <input type="text" name="author" value={newBlog.author} onChange={({target}) => setNewBlog({...newBlog, author: target.value})} />  <br />
-      </div>
-      <div>
-      <label htmlFor="url">url</label> <br />
-      <input type="text" name="url" value={newBlog.url} onChange={({target}) => setNewBlog({...newBlog, url: target.value})} />  <br />
-      </div>
-      <div>
-      <label htmlFor="likes">likes</label> <br />
-      <input type="number" name="likes"  value={newBlog.likes} onChange={({target}) => setNewBlog({...newBlog, likes: target.value})}/>  <br />
-      </div>
-
-      <button> add blog</button>
-      </form>
-      <button onClick={logout}>logout</button>
-      </>): (LoginForm())  }  
+      {user !== null ? (<> <div> {user.username} logged in</div> <button onClick={logout}> Logout </button> 
+      <Togglable buttonLabel= 'Add new Note'> <BlogForm newBlog={newBlog} 
+      onSubmit = {newBlogSubmit}
+      handleTitleChange = {({target}) => setNewBlog({...newBlog, title: target.value})}
+      handleAuthorChange = {({target}) => setNewBlog({...newBlog, author: target.value})}
+      handleLikeChange = {({target}) => setNewBlog({...newBlog, likes: target.value})}
+      handleUrlChange = {({target}) => setNewBlog({...newBlog, url: target.value})}
+      
+      /> </Togglable><div> {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} increaseLike = {() => increaseLike(blog.id)} 
+        deleteBlog = {() => deleteBlog(blog.id)} />
+      )} </div>  
+       </>): (LoginForm())  }  
     </div>
   )
 }
