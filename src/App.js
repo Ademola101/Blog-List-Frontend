@@ -13,17 +13,29 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
   const [noti, setNoti] = useState(null)
-  const [blogFormVisible, setBlogFormVisible] = useState(false)
+  
   
 
   const deleteBlog = async (id) => {
+    const blog = blogs.find(blog => blog.id ===id)
+    if (window.confirm(`Remove blog  ${blog.title}! by ${blog.author}`)) {
 
-    await blogService.remove(id)
-    const updatedBlog = blogs.filter(blog => blog.id !== id)
-    setBlogs(updatedBlog)
+      try {await blogService.remove(id)
+        const updatedBlog = blogs.filter(blog => blog.id !== id)
+        setBlogs(updatedBlog)
+       } 
+
+       catch(e) {
+        setNoti('Unauthorize')
+
+        setTimeout( () => {
+          setNoti(null)
+        }, 5000)
+       }
+     }
   }
 
-  
+
   const increaseLike =  async(id) => {
     
     const blog = blogs.find(blog => blog.id === id)
