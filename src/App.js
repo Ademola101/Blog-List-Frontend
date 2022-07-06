@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Loginservices from './services/Login'
 import Notification from './components/Notification'
+import BlogForm from './components/BlogForm'
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [noti, setNoti] = useState(null)
   const [loading, setLoading] = useState(true)
+  
   const [newBlog, setNewBlog] = useState({
     title: "",
     author: "",
@@ -112,32 +114,7 @@ console.log(user);
       {user !== null ? (<> <div> {user.username} logged in</div> <div> {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )} </div>
-      <form onSubmit={newBlogSubmit}>
-        <p> Add blog</p>
-
-      <div>
-
-      <label htmlFor="title">title</label> <br />
-      <input type="text" name="title" value={newBlog.title} onChange={({target}) => setNewBlog({...newBlog, title: target.value})} />  <br />
-      </div>
-  
-      <div>
-      <label htmlFor="author">author</label> <br />
-      <input type="text" name="author" value={newBlog.author} onChange={({target}) => setNewBlog({...newBlog, author: target.value})} />  <br />
-      </div>
-      <div>
-      <label htmlFor="url">url</label> <br />
-      <input type="text" name="url" value={newBlog.url} onChange={({target}) => setNewBlog({...newBlog, url: target.value})} />  <br />
-      </div>
-      <div>
-      <label htmlFor="likes">likes</label> <br />
-      <input type="number" name="likes"  value={newBlog.likes} onChange={({target}) => setNewBlog({...newBlog, likes: target.value})}/>  <br />
-      </div>
-
-      <button> add blog</button>
-      </form>
-      <button onClick={logout}>logout</button>
-      </>): (LoginForm())  }  
+      <BlogForm newBlog={newBlog}/> </>): (LoginForm())  }  
     </div>
   )
 }
