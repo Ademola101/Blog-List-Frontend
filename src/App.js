@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import Loginservices from './services/Login'
 import Notification from './components/Notification'
 import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 
 
 const App = () => {
@@ -12,7 +13,9 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
   const [noti, setNoti] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [blogFormVisible, setBlogFormVisible] = useState(false)
+  
+
   
   const [newBlog, setNewBlog] = useState({
     title: "",
@@ -77,14 +80,14 @@ const App = () => {
   }
 
   useEffect(() => {
-    setLoading(true)
+    
     const loggeInUser = window.localStorage.getItem('userLoggedin');
     if (loggeInUser) {
       const user  = JSON.parse(loggeInUser)
       setUser(user)
       blogService.setToken(user.token)
     }
-    setLoading(false)
+    
   }, [])
 
   const LoginForm = () => (
@@ -111,18 +114,17 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification error={noti}/>
-      {user !== null ? (<> <div> {user.username} logged in</div> <div> {blogs.map(blog =>
+      {user !== null ? (<> <div> {user.username} logged in</div> <button onClick={logout}> Logout </button><div> {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
-      )} </div>
-      <BlogForm newBlog={newBlog} 
+      )} </div>  <Togglable buttonLabel= 'Add new Note'> <BlogForm newBlog={newBlog} 
       onSubmit = {newBlogSubmit}
-      handleTitleChange = {({target}) => {setNewBlog({...newBlog, title: target.value})
-    console.log(newBlog);}}
+      handleTitleChange = {({target}) => setNewBlog({...newBlog, title: target.value})}
       handleAuthorChange = {({target}) => setNewBlog({...newBlog, author: target.value})}
       handleLikeChange = {({target}) => setNewBlog({...newBlog, likes: target.value})}
       handleUrlChange = {({target}) => setNewBlog({...newBlog, url: target.value})}
-      logout = {logout}
-      /> </>): (LoginForm())  }  
+      
+      /> </Togglable>
+       </>): (LoginForm())  }  
     </div>
   )
 }

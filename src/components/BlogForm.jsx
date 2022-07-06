@@ -1,7 +1,7 @@
 import React from 'react';
 
 const BlogForm = ({newBlog, onSubmit, handleTitleChange,
-   handleAuthorChange, handleUrlChange, logout, handleLikeChange}) => {
+   handleAuthorChange, handleUrlChange, handleLikeChange}) => {
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -28,7 +28,7 @@ const BlogForm = ({newBlog, onSubmit, handleTitleChange,
 
       <button> add blog</button>
       </form>
-      <button onClick={logout}>logout</button>
+      
       
     </div>
   );
