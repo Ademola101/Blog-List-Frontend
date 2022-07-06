@@ -16,7 +16,15 @@ const App = () => {
   const [blogFormVisible, setBlogFormVisible] = useState(false)
   
 
-  
+  const increaseLike =  async(id) => {
+    
+    const blog = blogs.find(blog => blog.id === id)
+    
+    const blogLike  = blog.likes
+    const changeBlog = {...blog, likes : blogLike + 1};
+    const returnedBlog =  await blogService.update(id, changeBlog)
+    setBlogs(blogs.map(blog => blog.id !==  id ? blog: returnedBlog))
+  }
   const [newBlog, setNewBlog] = useState({
     title: "",
     author: "",
@@ -123,7 +131,7 @@ const App = () => {
       handleUrlChange = {({target}) => setNewBlog({...newBlog, url: target.value})}
       
       /> </Togglable><div> {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} increaseLike = {() => increaseLike(blog.id)} />
       )} </div>  
        </>): (LoginForm())  }  
     </div>

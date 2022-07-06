@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const Blog = ({blog}) => {
+const Blog = ({blog, increaseLike}) => {
   
   const blogStyle = {
     paddingTop: 10,
@@ -26,7 +26,7 @@ setShowAll(!showAll)
       </div>
       <div>
         likes:
-      {blog.likes} 
+      {blog.likes}  <button onClick={increaseLike}> like</button>
       </div>
       <div>
         Author: 
