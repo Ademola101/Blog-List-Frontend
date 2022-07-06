@@ -28,7 +28,7 @@ const App = () => {
     )  
     console.log(user);
   }, [])
-console.log(user);
+
 
   const newBlogSubmit = async (e) => {
     e.preventDefault()
@@ -114,7 +114,15 @@ console.log(user);
       {user !== null ? (<> <div> {user.username} logged in</div> <div> {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )} </div>
-      <BlogForm newBlog={newBlog}/> </>): (LoginForm())  }  
+      <BlogForm newBlog={newBlog} 
+      onSubmit = {newBlogSubmit}
+      handleTitleChange = {({target}) => {setNewBlog({...newBlog, title: target.value})
+    console.log(newBlog);}}
+      handleAuthorChange = {({target}) => setNewBlog({...newBlog, author: target.value})}
+      handleLikeChange = {({target}) => setNewBlog({...newBlog, likes: target.value})}
+      handleUrlChange = {({target}) => setNewBlog({...newBlog, url: target.value})}
+      logout = {logout}
+      /> </>): (LoginForm())  }  
     </div>
   )
 }
