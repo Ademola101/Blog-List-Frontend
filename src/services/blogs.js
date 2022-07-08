@@ -1,6 +1,6 @@
 import axios from 'axios'
 const baseUrl = '/api/blog'
-let config = null
+
 
 let token = null
 
