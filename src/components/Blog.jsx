@@ -18,10 +18,10 @@ const Blog = ({ blog, increaseLike, deleteBlog }) => {
 
   return (
     <div style={blogStyle}>
-      <div> Title:
+      <div className='title'> Title:
         {blog.title} <button onClick={onClick} > {showAll ? 'hide' : 'view'} </button>
       </div>
-      {showAll ? (<><div> url :
+      {showAll ? (<div className='rest'><div> url :
         {blog.url}
       </div>
       <div>
@@ -34,7 +34,7 @@ const Blog = ({ blog, increaseLike, deleteBlog }) => {
         Author:
         {blog.author}
       </div>
-      <button onClick={deleteBlog}> Remove</button></>) : (<> </>)}
+      <button onClick={deleteBlog}> Remove</button></div>) : (<> </>)}
 
 
     </div>
