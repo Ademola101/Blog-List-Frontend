@@ -22,7 +22,10 @@ const App = () => {
 
     )
     console.log(user)
+    console.log(blogs)
   }, [])
+
+
 
   const deleteBlog = async (id) => {
     const blog = blogs.find(blog => blog.id ===id)
@@ -142,7 +145,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification error={noti}/>
-      {user !== null ? (<> <div> {user.username} logged in</div> <button onClick={logout}> Logout </button>
+      {user === null ? (LoginForm())   :(<> <div> {user.username} logged in</div> <button onClick={logout}> Logout </button>
         <Togglable buttonLabel= 'Add new Note'> <BlogForm newBlog={newBlog}
           onSubmit = {newBlogSubmit}
           handleTitleChange = {({ target }) => setNewBlog({ ...newBlog, title: target.value })}
@@ -154,7 +157,7 @@ const App = () => {
           <Blog key={blog.id} blog={blog} increaseLike = {() => increaseLike(blog.id)}
             deleteBlog = {() => deleteBlog(blog.id)} />
         )} </div>
-      </>): (LoginForm())  }
+      </>) }
     </div>
   )
 }
