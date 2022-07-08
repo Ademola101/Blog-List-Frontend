@@ -16,6 +16,14 @@ const App = () => {
 
 
 
+  useEffect(() => {
+    blogService.getAll().then(blogs =>
+      setBlogs( blogs )
+
+    )
+    console.log(user)
+  }, [])
+
   const deleteBlog = async (id) => {
     const blog = blogs.find(blog => blog.id ===id)
     if (window.confirm(`Remove blog  ${blog.title}! by ${blog.author}`)) {
@@ -51,14 +59,6 @@ const App = () => {
     url: '',
     likes: ''
   })
-
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-
-    )
-    console.log(user)
-  }, [])
 
 
   const newBlogSubmit = async (e) => {
