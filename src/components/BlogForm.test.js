@@ -21,7 +21,7 @@ test('event handler is fired with the right props', async() => {
 
 
   await user.click(save)
-
+  expect(createBlog.mock.calls).toHaveLength(1)
   expect(createBlog.mock.calls[0][0]).toBe('test title input')
   expect(createBlog.mock.calls[0][1]).toBe('Ademola')
   expect(createBlog.mock.calls[0][2]).toBe('www.ademola')
