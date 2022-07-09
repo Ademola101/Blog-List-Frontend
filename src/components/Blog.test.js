@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen,fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 describe('<Blog/>',  () => {
@@ -42,9 +41,9 @@ describe('<Blog/>',  () => {
   test('button click twice fire event handler twice', () => {
     const viewButton  = screen.getByText('view')
     fireEvent.click(viewButton)
-    const button  = screen.getByText('like')
-    fireEvent.click(button)
-    fireEvent.click(button)
+    const likeButton  = screen.getByText('like')
+    fireEvent.click(likeButton)
+    fireEvent.click(likeButton)
     expect(increaseLike.mock.calls).toHaveLength(2)
 
   })
