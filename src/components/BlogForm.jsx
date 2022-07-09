@@ -48,7 +48,7 @@ const BlogForm = ({ createBlog }) => {
           <input type="number" name="likes"  value={newBlog.likes} onChange={handleInputChange} id = 'likes-input'/>  <br />
         </div>
 
-        <button> add blog</button>
+        <button> save</button>
       </form>
 
 
