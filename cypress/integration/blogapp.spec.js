@@ -66,6 +66,10 @@ describe('Blog List app', function()  {
 
     })
 
+    it('a user can like post', function() {
+      
+    });
+    
   })
 
 })
