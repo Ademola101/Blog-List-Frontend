@@ -64,7 +64,7 @@ const App = () => {
       })
       console.log(returnBlog)
       setBlogs(blogs.concat(returnBlog))
-      BlogFormRef.current.toggleVisiblity()
+      BlogFormRef.current.toggleVisibility()
       setNoti(`a new blog ${returnBlog.title} was added`)
       setTimeout(() => {
         setNoti(null)
