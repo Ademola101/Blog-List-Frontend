@@ -35,12 +35,13 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
     "cypress": "^7.6.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "jest-watch-typeahead": "^0.6.5"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
