@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Loginservices from './services/Login'
@@ -25,7 +25,7 @@ const App = () => {
     console.log(blogs)
   }, [])
 
-
+  const BlogFormRef = useRef()
 
   const deleteBlog = async (id) => {
     const blog = blogs.find(blog => blog.id ===id)
@@ -64,6 +64,7 @@ const App = () => {
       })
       console.log(returnBlog)
       setBlogs(blogs.concat(returnBlog))
+      BlogFormRef.current.toggleVisiblity()
       setNoti(`a new blog ${returnBlog.title} was added`)
       setTimeout(() => {
         setNoti(null)
@@ -135,10 +136,10 @@ const App = () => {
       <h2>blogs</h2>
       <Notification error={noti}/>
       {user === null ? (LoginForm())   :(<> <div> {user.username} logged in</div> <button onClick={logout}> Logout </button>
-        <Togglable buttonLabel= 'Add new Note'> <BlogForm
+        <Togglable buttonLabel= 'Add new Note' ref = {BlogFormRef}> <BlogForm
           createBlog = {newBlogSubmit}
 
-        /> </Togglable><div> {blogs.map(blog =>
+        /> </Togglable ><div> {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} increaseLike = {() => increaseLike(blog.id)}
             deleteBlog = {() => deleteBlog(blog.id)} />
         )} </div>
