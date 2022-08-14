@@ -17,6 +17,16 @@ const App = () => {
 
 
   useEffect(() => {
+
+    const loggeInUser = window.localStorage.getItem('userLoggedin')
+    if (loggeInUser) {
+      const user  = JSON.parse(loggeInUser)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
+
+  }, [])
+  useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
 
@@ -100,16 +110,6 @@ const App = () => {
     setUser(null)
   }
 
-  useEffect(() => {
-
-    const loggeInUser = window.localStorage.getItem('userLoggedin')
-    if (loggeInUser) {
-      const user  = JSON.parse(loggeInUser)
-      setUser(user)
-      blogService.setToken(user.token)
-    }
-
-  }, [])
 
   const LoginForm = () => (
     <div>
