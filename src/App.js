@@ -6,6 +6,7 @@ import Notification from './components/Notification';
 import BlogForm from './components/BlogForm';
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
+import BlogsList from './components/BlogsList';
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
@@ -112,14 +113,8 @@ const App = () => {
           </Togglable>
           <div>
             {' '}
-            {blogs.map((blog) => (
-              <Blog
-                key={blog.id}
-                blog={blog}
-                increaseLike={() => increaseLike(blog.id)}
-                deleteBlog={() => deleteBlog(blog.id)}
-              />
-            ))}{' '}
+            <BlogsList/>
+            {' '}
           </div>
         </>
       )}
