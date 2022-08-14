@@ -5,7 +5,7 @@ import Loginservices from './services/Login';
 import Notification from './components/Notification';
 import BlogForm from './components/BlogForm';
 import Togglable from './components/Togglable';
-
+import LoginForm from './components/LoginForm';
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
@@ -96,40 +96,12 @@ const App = () => {
     setUser(null);
   };
 
-  const LoginForm = () => (
-    <div>
-      <form onSubmit={loginSubmit}>
-        <div>
-          <label htmlFor="username">Username </label> <br />
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">password</label> <br />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            id="password"
-            onChange={({ target }) => setPassword(target.value)}
-          />{' '}
-          <br />
-          <button>login</button>
-        </div>
-      </form>
-    </div>
-  );
   return (
     <div>
       <h2>blogs</h2>
       <Notification error={noti} />
       {user === null ? (
-        LoginForm()
+        <LoginForm onSubmit={loginSubmit} username = {username} setPassword = {setPassword} setUsername = {setUsername}/>
       ) : (
         <>
           {' '}
