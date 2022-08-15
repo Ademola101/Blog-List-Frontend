@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAddNewBlogMutation } from '../reducers/api/apiSlice';
-const BlogForm = () => {
+
+
+export default function BlogForm ()  {
   const [addNewBlog, { isLoading }] = useAddNewBlogMutation();
 
   const [newBlog, setNewBlog] = useState({
@@ -16,21 +18,30 @@ const BlogForm = () => {
   };
 
   //
-  const handleCreateBlog = async(e) => {
+  const handleCreateBlog = (e) => {
     e.PreventDafault();
-    if (Object.keys(newBlog).every(key => key !== '' && !isLoading)) {
-      try {
-        await addNewBlog(newBlog).unwrap();
-      }
-      catch(err) {
-        console.log(err);
+
+    try {
+      if (Object.keys(newBlog).every(key => key !== '' && !isLoading)) {
+        addNewBlog(newBlog).unwrap();
       }
     }
-  };
+    catch(err) {
+      console.log(err);
+    // }
+    // if (Object.keys(newBlog).every(key => key !== '' && !isLoading)) {
+    //   try {
+    //     await addNewBlog(newBlog).unwrap();
+    //   }
+    //   catch(err) {
+    //     console.log(err);
+    //   }
+    // }
+    }};
   return (
     <div>
       <form onSubmit={handleCreateBlog}>
-        <p> Add blog</p>
+        <p> Add blog test</p>
 
         <div>
           <label htmlFor="title">title</label> <br />
@@ -82,6 +93,6 @@ const BlogForm = () => {
       </form>
     </div>
   );
-};
+}
 
-export default BlogForm;
+
