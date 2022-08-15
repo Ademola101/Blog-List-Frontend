@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import Blog from './components/Blog';
 import blogService from './services/blogs';
 import Loginservices from './services/Login';
 import Notification from './components/Notification';
-import BlogForm from './components/BlogForm';
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
 import BlogsList from './components/BlogsList';
+import BlogForm from './components/BlogForm';
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
@@ -30,50 +29,50 @@ const App = () => {
 
   const BlogFormRef = useRef();
 
-  const deleteBlog = async (id) => {
-    const blog = blogs.find((blog) => blog.id === id);
-    if (window.confirm(`Remove blog  ${blog.title}! by ${blog.author}`)) {
-      try {
-        await blogService.remove(id);
-        const updatedBlog = blogs.filter((blog) => blog.id !== id);
-        setBlogs(updatedBlog);
-      } catch (e) {
-        setNoti('Unauthorize');
+  // const deleteBlog = async (id) => {
+  //   const blog = blogs.find((blog) => blog.id === id);
+  //   if (window.confirm(`Remove blog  ${blog.title}! by ${blog.author}`)) {
+  //     try {
+  //       await blogService.remove(id);
+  //       const updatedBlog = blogs.filter((blog) => blog.id !== id);
+  //       setBlogs(updatedBlog);
+  //     } catch (e) {
+  //       setNoti('Unauthorize');
 
-        setTimeout(() => {
-          setNoti(null);
-        }, 5000);
-      }
-    }
-  };
+  //       setTimeout(() => {
+  //         setNoti(null);
+  //       }, 5000);
+  //     }
+  //   }
+  // };
 
-  const increaseLike = async (id) => {
-    const blog = blogs.find((blog) => blog.id === id);
+  // const increaseLike = async (id) => {
+  //   const blog = blogs.find((blog) => blog.id === id);
 
-    const blogLike = blog.likes;
-    const changeBlog = { ...blog, likes: blogLike + 1 };
-    const returnedBlog = await blogService.update(id, changeBlog);
-    setBlogs(blogs.map((blog) => (blog.id !== id ? blog : returnedBlog)));
-  };
-  const newBlogSubmit = async (title, author, url, likes) => {
-    try {
-      const returnBlog = await blogService.create({
-        title,
-        author,
-        url,
-        likes
-      });
-      console.log(returnBlog);
-      setBlogs(blogs.concat(returnBlog));
-      BlogFormRef.current.toggleVisibility();
-      setNoti(`a new blog ${returnBlog.title} was added`);
-      setTimeout(() => {
-        setNoti(null);
-      }, 5000);
-    } catch (error) {
-      setNoti('serror saving');
-    }
-  };
+  //   const blogLike = blog.likes;
+  //   const changeBlog = { ...blog, likes: blogLike + 1 };
+  //   const returnedBlog = await blogService.update(id, changeBlog);
+  //   setBlogs(blogs.map((blog) => (blog.id !== id ? blog : returnedBlog)));
+  // };
+  // // const newBlogSubmit = async (title, author, url, likes) => {
+  //   try {
+  //     const returnBlog = await blogService.create({
+  //       title,
+  //       author,
+  //       url,
+  //       likes
+  //     });
+  //     console.log(returnBlog);
+  //     setBlogs(blogs.concat(returnBlog));
+  //     BlogFormRef.current.toggleVisibility();
+  //     setNoti(`a new blog ${returnBlog.title} was added`);
+  //     setTimeout(() => {
+  //       setNoti(null);
+  //     }, 5000);
+  //   } catch (error) {
+  //     setNoti('serror saving');
+  //   }
+  // };
 
   const loginSubmit = async (e) => {
     e.preventDefault();
@@ -109,7 +108,7 @@ const App = () => {
           <div> {user.username} logged in</div> <button onClick={logout}> Logout </button>
           <Togglable buttonLabel="Add new Note" ref={BlogFormRef}>
             {' '}
-            <BlogForm createBlog={newBlogSubmit} />{' '}
+            <BlogForm  />{' '}
           </Togglable>
           <div>
             {' '}

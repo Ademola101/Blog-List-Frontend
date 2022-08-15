@@ -25,7 +25,7 @@ export default function BlogsList() {
     content = <div>{error.toString()}</div>;
   }
   return ( <>
-    <div>BlogsList</div>
+    <div>BlogsList test</div>
 
     {content}
   </>

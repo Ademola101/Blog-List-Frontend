@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useAddNewBlogMutation } from '../reducers/api/apiSlice';
+const BlogForm = () => {
+  const [addNewBlog, { isLoading }] = useAddNewBlogMutation();
 
-const BlogForm = ({ createBlog }) => {
   const [newBlog, setNewBlog] = useState({
     title: '',
     author: '',
@@ -13,10 +15,17 @@ const BlogForm = ({ createBlog }) => {
     setNewBlog({ ...newBlog, [name]: value });
   };
 
-  const handleCreateBlog = (e) => {
-    e.preventDefault();
-    createBlog(newBlog.title, newBlog.author, newBlog.url, newBlog.likes);
-    setNewBlog({ title: '', author: '', url: '', likes: '' });
+  //
+  const handleCreateBlog = async(e) => {
+    e.PreventDafault();
+    if (Object.keys(newBlog).every(key => key !== '' && !isLoading)) {
+      try {
+        await addNewBlog(newBlog).unwrap();
+      }
+      catch(err) {
+        console.log(err);
+      }
+    }
   };
   return (
     <div>
