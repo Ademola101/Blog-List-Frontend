@@ -26,6 +26,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const userstate = await login(user).unwrap();
+      console.log(userstate);
       dispatch(setCredentials(userstate));
     }
     catch (err) {
