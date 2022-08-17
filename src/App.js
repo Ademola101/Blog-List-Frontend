@@ -5,7 +5,7 @@ import Notification from './components/Notification';
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
 import BlogsList from './components/BlogsList';
-import BlogForm from './components/BlogForm';
+import BlogFormre from './components/BlogFormre';
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
@@ -101,14 +101,14 @@ const App = () => {
       <h2>blogs</h2>
       <Notification error={noti} />
       {user === null ? (
-        <LoginForm onSubmit={loginSubmit} username = {username} setPassword = {setPassword} setUsername = {setUsername}/>
+        <LoginForm />
       ) : (
         <>
           {' '}
           <div> {user.username} logged in</div> <button onClick={logout}> Logout </button>
           <Togglable buttonLabel="Add new Note" ref={BlogFormRef}>
             {' '}
-            <BlogForm  />{' '}
+            <BlogFormre  />{' '}
           </Togglable>
           <div>
             {' '}

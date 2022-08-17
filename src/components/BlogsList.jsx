@@ -11,7 +11,7 @@ export default function BlogsList() {
     error
 
   } = useGetBlogsQuery();
-
+  console.log(error);
   let content;
 
   if(isLoading) {
@@ -22,7 +22,7 @@ export default function BlogsList() {
     content = blogs.map(blog => <BlogExcerpt key={blog.id} blog = {blog}/>);
   }
   else if(isError) {
-    content = <div>{error.toString()}</div>;
+    content = <div>{error.error.toString()}</div>;
   }
   return ( <>
     <div>BlogsList test</div>

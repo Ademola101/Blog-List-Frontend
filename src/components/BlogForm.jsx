@@ -41,7 +41,7 @@ export default function BlogForm ()  {
   return (
     <div>
       <form onSubmit={handleCreateBlog}>
-        <p> Add blog test</p>
+        <p> Add blog</p>
 
         <div>
           <label htmlFor="title">title</label> <br />
