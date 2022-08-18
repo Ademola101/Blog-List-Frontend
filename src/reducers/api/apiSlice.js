@@ -24,6 +24,14 @@ export const apiSlice = createApi({
       query: () => '/blog',
       providesTags: ['Blog']
     }),
+    deleteBlog: builder.mutation({
+      query: id => ({
+        url: `/blog/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Blog']
+
+    }),
     addNewBlog: builder.mutation({
       query: initialBlog => ({
         url: '/blog',
@@ -33,11 +41,17 @@ export const apiSlice = createApi({
       invalidatesTags: ['Blog']
     }),
 
-    protected: builder.mutation({
-      query: 'protected'
+    updateBlog: builder.mutation({
+      query: (id, newObject) => ({
+        url: `/blog/${id}`,
+        method: 'PUT',
+        body: newObject
+      }),
     })
   })
 
 });
 
-export const { useLoginMutation, useGetBlogsQuery, useAddNewBlogMutation }  = apiSlice;
+
+
+export const { useLoginMutation, useGetBlogsQuery, useAddNewBlogMutation, useDeleteBlogMutation,useUpdateBlogMutation }  = apiSlice;

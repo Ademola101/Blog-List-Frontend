@@ -1,5 +1,9 @@
 import { useState } from 'react';
+import { useDeleteBlogMutation } from '../reducers/api/apiSlice';
 const BlogExcerpt = ({ blog }) => {
+
+  const [ deleteBlog, response] = useDeleteBlogMutation();
+
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -33,7 +37,7 @@ const BlogExcerpt = ({ blog }) => {
             Author:
             {blog.author}
           </div>
-          <button > Remove</button>
+          <button onClick={() => deleteBlog(blog.id)}> Remove</button>
         </div>
       ) : (
         <> </>
