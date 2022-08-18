@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useDeleteBlogMutation, useUpdateBlogMutation, useGetBlogsQuery } from '../reducers/api/apiSlice';
+import { useDeleteBlogMutation, useUpdateBlogMutation } from '../reducers/api/apiSlice';
 const BlogExcerpt = ({ blog }) => {
-  const [ deleteBlog] = useDeleteBlogMutation();
+  const [ deleteBlog, { isError: isDeleteError, error: deleteError }] = useDeleteBlogMutation();
 
-  const [updatePost, { isLoading: isUpdating }] = useUpdateBlogMutation();
-  const { data: post } = useGetBlogsQuery(blog.id);
+  const [updatePost, { isLoading: isUpdating, isError, error }] = useUpdateBlogMutation();
+
 
 
   const increaseLike = async (blog) => {
@@ -45,6 +45,8 @@ const BlogExcerpt = ({ blog }) => {
           <div>
             likes:
             {blog.likes} <button onClick={() => increaseLike(blog)}> like</button>
+            {isUpdating ? (<div> Updating...</div>)  : ''}
+            {isError ? error.toString() : ''}
           </div>
 
           <div>
@@ -52,6 +54,8 @@ const BlogExcerpt = ({ blog }) => {
             {blog.author}
           </div>
           <button onClick={() => deleteBlog(blog.id)}> Remove</button>
+          {isDeleteError ? deleteError.error.toString() : ''}
+
         </div>
       ) : (
         <> </>
