@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetBlogsQuery, useUpdateBlogMutation } from '../reducers/api/apiSlice';
+import { useGetBlogsQuery} from '../reducers/api/apiSlice';
 import BlogExcerpt from './BlogExcept';
 export default function BlogsList() {
 

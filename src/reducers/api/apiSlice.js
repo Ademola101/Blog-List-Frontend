@@ -40,13 +40,13 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['Blog']
     }),
-
     updateBlog: builder.mutation({
-      query: (id, newObject) => ({
-        url: `/blog/${id}`,
+      query: blog => ({
+        url: `/blog/${blog.id}`,
         method: 'PUT',
-        body: newObject
+        body: blog
       }),
+      invalidatesTags: ['Blog']
     })
   })
 
