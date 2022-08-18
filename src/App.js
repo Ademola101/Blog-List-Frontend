@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import blogService from './services/blogs';
+import { useEffect, useRef } from 'react';
+
 // import Loginservices from './services/Login';
 import Notification from './components/Notification';
 import Togglable from './components/Togglable';
@@ -107,11 +107,10 @@ const App = () => {
   // };
 
   const logout = () => {
-    // window.localStorage.clear();
-    // setUser(null);
+    window.localStorage.clear();
 
-    dispatch(removeCredentials);
-    console.log(user);
+    dispatch(removeCredentials());
+
   };
 
   return (
@@ -123,7 +122,7 @@ const App = () => {
       ) : (
         <>
           {' '}
-          <div> {user.username} logged in</div> <button onClick={() => dispatch(removeCredentials())}> logout </button>
+          <div> {user.username} logged in</div> <button onClick={logout}> logout </button>
           <Togglable buttonLabel="Add new Note" ref={BlogFormRef}>
             {' '}
             <BlogFormre  />{' '}

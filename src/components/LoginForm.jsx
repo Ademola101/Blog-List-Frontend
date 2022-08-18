@@ -60,7 +60,7 @@ const LoginForm = () => {
         <br />
         <button>login</button>
       </div>
-
+      {isLoading && <div> Logiing in </div>}
     </form>
   );
 };
