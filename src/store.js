@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './reducers/api/apiSlice';
-import AuthReducer from './reducers/api/Auth';
+import AuthReducer, { actions } from './reducers/api/Auth';
+
 export const store = configureStore({
   reducer: {
 
@@ -13,3 +14,6 @@ export const store = configureStore({
 });
 
 export const  storeState = store.getState();
+console.log(storeState);
+console.log(actions);
+

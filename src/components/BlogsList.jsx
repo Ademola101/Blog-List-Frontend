@@ -3,6 +3,9 @@ import { useGetBlogsQuery } from '../reducers/api/apiSlice';
 import BlogExcerpt from './BlogExcept';
 export default function BlogsList() {
 
+
+
+
   const {
     data:blogs,
     isLoading,
@@ -26,6 +29,7 @@ export default function BlogsList() {
   }
   return ( <>
     <div>BlogsList test</div>
+
 
     {content}
   </>
