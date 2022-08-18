@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useLoginMutation } from '../reducers/api/apiSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCredentials } from '../reducers/api/Auth';
+import { setCredentials } from '../reducers/Auth/Auth';
+import {  createNotification } from '../reducers/Notification';
 
 
 
@@ -29,6 +30,7 @@ const LoginForm = () => {
       console.log(userstate);
       dispatch(setCredentials(userstate));
       window.localStorage.setItem('loggedinUser', JSON.stringify(userstate));
+      dispatch(createNotification('You are logged in'));
     }
     catch (err) {
       console.log(err);
