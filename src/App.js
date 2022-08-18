@@ -7,7 +7,7 @@ import LoginForm from './components/LoginForm';
 import BlogsList from './components/BlogsList';
 import BlogFormre from './components/BlogFormre';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeCredentials } from './reducers/api/Auth';
+import { removeCredentials, setCredentials } from './reducers/api/Auth';
 const App = () => {
   // const [blogs, setBlogs] = useState([]);
   // const [user, setUser] = useState(null);
@@ -15,14 +15,24 @@ const App = () => {
   // const [password, setPassword] = useState('');
   // const [noti, setNoti] = useState(null);
 
-  // useEffect(() => {
-  //   const loggeInUser = window.localStorage.getItem('userLoggedin');
-  //   if (loggeInUser) {
-  //     const user = JSON.parse(loggeInUser);
-  //     setUser(user);
-  //     blogService.setToken(user.token);
-  //   }
-  // }, []);
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loggeInUser = window.localStorage.getItem('loggedinUser');
+    if (loggeInUser) {
+      console.log('loggeInUser', loggeInUser);
+
+      dispatch(setCredentials(JSON.parse(loggeInUser)));
+
+
+
+
+
+    }
+  }, []);
+  const user = useSelector(state => state.auth.user);
   // useEffect(() => {
   //   blogService.getAll().then((blogs) => setBlogs(blogs));
   //   console.log(user);
@@ -31,9 +41,6 @@ const App = () => {
 
   const BlogFormRef = useRef();
 
-  const user = useSelector(state => state.auth.user);
-
-  const dispatch = useDispatch();
 
   console.log(user);
 
