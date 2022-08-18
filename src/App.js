@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import Notification from './components/Notification';
-import Togglable from './components/Togglable';
-import LoginForm from './components/LoginForm';
-import BlogsList from './components/BlogsList';
-import BlogFormre from './components/BlogFormre';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeCredentials, setCredentials } from './reducers/Auth/Auth';
+import { setCredentials } from './reducers/Auth/Auth';
+import Menu from './components/Menu';
+import { Route, Routes } from 'react-router-dom';
+import Home from './Pages/Home';
+import BlogListPage from './Pages/BlogListPage';
 const App = () => {
 
   const dispatch = useDispatch();
@@ -20,37 +20,20 @@ const App = () => {
     }
   }, []);
   const user = useSelector(state => state.auth.user);
-  const BlogFormRef = useRef();
 
 
-  const logout = () => {
-    window.localStorage.clear();
 
-    dispatch(removeCredentials());
-
-  };
 
   return (
     <div>
-      <h2>blogs</h2>
+      <Menu/>
       <Notification />
-      {user === null ? (
-        <LoginForm />
-      ) : (
-        <>
-          {' '}
-          <div> {user.username} logged in</div> <button onClick={logout}> logout </button>
-          <Togglable buttonLabel="Add new Note" ref={BlogFormRef}>
-            {' '}
-            <BlogFormre  />{' '}
-          </Togglable>
-          <div>
-            {' '}
-            <BlogsList/>
-            {' '}
-          </div>
-        </>
-      )}
+      <h2>blogs</h2>
+      <Routes>
+        <Route path='/' element = {<Home/>}/>
+        <Route path='/blogs' element = {<BlogListPage/>}/>
+      </Routes>
+
     </div>
   );
 };
