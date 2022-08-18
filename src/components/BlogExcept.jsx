@@ -1,8 +1,22 @@
 import { useState } from 'react';
-import { useDeleteBlogMutation } from '../reducers/api/apiSlice';
+import { useDeleteBlogMutation, useUpdateBlogMutation } from '../reducers/api/apiSlice';
 const BlogExcerpt = ({ blog }) => {
 
-  const [ deleteBlog, response] = useDeleteBlogMutation();
+  const [updatePost, { isLoading: isUpdating }] = useUpdateBlogMutation();
+
+  const increaseLike = (id) => {
+    updatePost({
+      variables: {
+
+        id,
+        likes: blog.likes + 1
+
+      }
+    }, {
+      refetchQueries: [{ query: useGetBlogsQuery }]
+    });
+
+  };
 
   const blogStyle = {
     paddingTop: 10,
