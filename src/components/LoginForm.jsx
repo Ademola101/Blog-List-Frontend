@@ -3,11 +3,13 @@ import { useLoginMutation } from '../reducers/api/apiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from '../reducers/Auth/Auth';
 import {  createNotification } from '../reducers/Notification';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const LoginForm = () => {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const authstate = useSelector(state => state.auth);
   console.log(authstate);
@@ -31,6 +33,7 @@ const LoginForm = () => {
       dispatch(setCredentials(userstate));
       window.localStorage.setItem('loggedinUser', JSON.stringify(userstate));
       dispatch(createNotification('You are logged in'));
+      navigate('/user');
     }
     catch (err) {
       console.log(err);

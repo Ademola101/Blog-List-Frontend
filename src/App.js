@@ -3,9 +3,12 @@ import Notification from './components/Notification';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCredentials } from './reducers/Auth/Auth';
 import Menu from './components/Menu';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from './Pages/Home';
 import BlogListPage from './Pages/BlogListPage';
+import User from './Pages/User';
+import LoginForm from './components/LoginForm';
+
 const App = () => {
 
   const dispatch = useDispatch();
@@ -20,6 +23,7 @@ const App = () => {
     }
   }, []);
   const user = useSelector(state => state.auth.user);
+  console.log(Boolean(user));
 
 
 
@@ -31,7 +35,9 @@ const App = () => {
       <h2>blogs</h2>
       <Routes>
         <Route path='/' element = {<Home/>}/>
-        <Route path='/blogs' element = {<BlogListPage/>}/>
+        <Route path='/blogs' element = {user ? <BlogListPage/> : <Navigate replace to = '/login'/>}/>
+        <Route path='/login' element = {<LoginForm/>}/>
+        <Route path='/user' element = { user ? <User/> : <Navigate replace to = '/login'/>}/>
       </Routes>
 
     </div>
