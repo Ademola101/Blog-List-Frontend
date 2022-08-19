@@ -33,7 +33,7 @@ const LoginForm = () => {
       dispatch(setCredentials(userstate));
       window.localStorage.setItem('loggedinUser', JSON.stringify(userstate));
       dispatch(createNotification('You are logged in'));
-      navigate('/user');
+      navigate('/users');
     }
     catch (err) {
       console.log(err);

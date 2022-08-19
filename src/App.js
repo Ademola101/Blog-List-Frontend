@@ -35,9 +35,9 @@ const App = () => {
       <h2>blogs</h2>
       <Routes>
         <Route path='/' element = {<Home/>}/>
-        <Route path='/blogs' element = {user ? <BlogListPage/> : <Navigate replace to = '/login'/>}/>
+        <Route path='/blogs' element = {user !== null || user === undefined || user ?  <BlogListPage/> : <Navigate replace to = '/login'/>}/>
         <Route path='/login' element = {<LoginForm/>}/>
-        <Route path='/user' element = { user ? <User/> : <Navigate replace to = '/login'/>}/>
+        <Route path='/users' element = { user ? <User/> : <Navigate replace to = '/login'/>}/>
       </Routes>
 
     </div>

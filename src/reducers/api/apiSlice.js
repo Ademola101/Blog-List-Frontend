@@ -47,6 +47,9 @@ export const apiSlice = createApi({
         body: blog
       }),
       invalidatesTags: ['Blog']
+    }),
+    getUser: builder.query({
+      query: () => '/users'
     })
   })
 
@@ -54,4 +57,5 @@ export const apiSlice = createApi({
 
 
 
-export const { useLoginMutation, useGetBlogsQuery, useAddNewBlogMutation, useDeleteBlogMutation,useUpdateBlogMutation }  = apiSlice;
+export const { useLoginMutation, useGetBlogsQuery,
+  useAddNewBlogMutation, useDeleteBlogMutation,useUpdateBlogMutation, useGetUserQuery }  = apiSlice;
