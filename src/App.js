@@ -8,7 +8,6 @@ import Home from './Pages/Home';
 import BlogListPage from './Pages/BlogListPage';
 import User from './Pages/User';
 import LoginForm from './components/LoginForm';
-import UserNames from './components/UserNames';
 import UserDetails from './Pages/UserDetails';
 
 const App = () => {

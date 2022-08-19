@@ -4,22 +4,18 @@ import { useParams } from 'react-router-dom';
 
 
 export default function UserDetails() {
-  const { isLoading, isError, error, data:users,isSuccess } = useGetUserQuery();
+  const {  isError, error, data:users,isSuccess, isFetching } = useGetUserQuery();
 
   const { id } = useParams();
   const user = users?.find(data => data.id === id);
 
   let content;
-  if (isLoading) {
+  if (isFetching) {
     content = <div>Loading</div>;
   }
 
   if (isSuccess) {
     content = user.blogs.map(blog => <li key={blog.id}>{blog.title}</li>);
-  }
-
-  if(!user) {
-    content = null;
   }
 
   if (isError) {
