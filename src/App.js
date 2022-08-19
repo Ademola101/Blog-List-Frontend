@@ -8,6 +8,8 @@ import Home from './Pages/Home';
 import BlogListPage from './Pages/BlogListPage';
 import User from './Pages/User';
 import LoginForm from './components/LoginForm';
+import UserNames from './components/UserNames';
+import UserDetails from './Pages/UserDetails';
 
 const App = () => {
 
@@ -35,9 +37,12 @@ const App = () => {
       <h2>blogs</h2>
       <Routes>
         <Route path='/' element = {<Home/>}/>
-        <Route path='/blogs' element = {user !== null || user === undefined || user ?  <BlogListPage/> : <Navigate replace to = '/login'/>}/>
+        <Route path='/blogs' element = {user !== null || user === undefined || user ?  <BlogListPage/> :
+          <Navigate replace to = '/login'/>}/>
         <Route path='/login' element = {<LoginForm/>}/>
         <Route path='/users' element = { user ? <User/> : <Navigate replace to = '/login'/>}/>
+        <Route path={'/users/:id'} element = {<UserDetails/>}/>
+
       </Routes>
 
     </div>

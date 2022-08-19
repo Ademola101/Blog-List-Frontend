@@ -2,7 +2,6 @@ import React from 'react';
 import { useGetUserQuery } from '../reducers/api/apiSlice';
 import UserNames from '../components/UserNames';
 import UserBlognumber from '../components/UserBlognumber';
-import { Link } from 'react-router-dom';
 
 export default function User() {
   const { isLoading, isError, error, data, } = useGetUserQuery();
